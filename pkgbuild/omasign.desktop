@@ -1,0 +1,12 @@
+[Desktop Entry]
+Type=Application
+Name=Omasign
+GenericName=PDF Signer
+Comment=Sign PDFs with a digital signature that doesn't look like a defect
+Exec=omasign %f
+Icon=omasign
+Terminal=false
+Categories=Office;Viewer;Security;
+MimeType=application/pdf;
+Keywords=pdf;sign;signature;digital;certificate;docusign;
+StartupWMClass=omasign

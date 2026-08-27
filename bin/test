@@ -1,0 +1,24 @@
+#!/usr/bin/env sh
+set -eu
+
+ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+BUILD_DIR="$ROOT/build-tests"
+
+if command -v qmake6 >/dev/null 2>&1; then
+  QMAKE=qmake6
+elif [ -x /usr/lib64/qt6/bin/qmake6 ]; then
+  QMAKE=/usr/lib64/qt6/bin/qmake6
+elif [ -x /usr/lib/qt6/bin/qmake6 ]; then
+  QMAKE=/usr/lib/qt6/bin/qmake6
+else
+  QMAKE=qmake
+fi
+
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR"
+"$QMAKE" "$ROOT/tests/tests.pro"
+make -j"$(nproc 2>/dev/null || echo 1)"
+
+# The signing tests build a throwaway NSS database, so they never touch the
+# user's real one at ~/.pki/nssdb.
+QT_QPA_PLATFORM=offscreen QT_QUICK_BACKEND=software ./tst_omasign "$@"

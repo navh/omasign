@@ -1,0 +1,19 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="Main.qml">Main.qml</file>
+        <file alias="Theme.qml">Theme.qml</file>
+        <file alias="SetupView.qml">SetupView.qml</file>
+        <file alias="SignView.qml">SignView.qml</file>
+        <file alias="SettingsSheet.qml">SettingsSheet.qml</file>
+        <file alias="Toast.qml">Toast.qml</file>
+        <file alias="AppButton.qml">AppButton.qml</file>
+        <file alias="AppTextField.qml">AppTextField.qml</file>
+        <file alias="FieldLabel.qml">FieldLabel.qml</file>
+        <file alias="SegmentedControl.qml">SegmentedControl.qml</file>
+        <file alias="FileDialogLoader.qml">FileDialogLoader.qml</file>
+        <file alias="marks/omasign-mark.svg">marks/omasign-mark.svg</file>
+        <file alias="fonts/Inter-Regular.ttf">../fonts/Inter-Regular.ttf</file>
+        <file alias="fonts/Inter-Medium.ttf">../fonts/Inter-Medium.ttf</file>
+        <file alias="fonts/Inter-SemiBold.ttf">../fonts/Inter-SemiBold.ttf</file>
+    </qresource>
+</RCC>

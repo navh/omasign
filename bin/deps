@@ -1,0 +1,20 @@
+#!/usr/bin/env sh
+# Install what Omasign needs to build and run. Run it with sudo, or just read
+# it and install the equivalents for your distribution by hand.
+set -eu
+
+ARCH_PACKAGES="qt6-base qt6-declarative qt6-svg poppler-qt6 nss nss-tools"
+FEDORA_PACKAGES="qt6-qtbase-devel qt6-qtdeclarative-devel qt6-qtsvg-devel poppler-qt6-devel nss-tools"
+DEBIAN_PACKAGES="qt6-base-dev qt6-declarative-dev libqt6svg6-dev libpoppler-qt6-dev libnss3-tools"
+
+if command -v pacman >/dev/null 2>&1; then
+  exec pacman -S --needed $ARCH_PACKAGES
+elif command -v dnf >/dev/null 2>&1; then
+  exec dnf install $FEDORA_PACKAGES
+elif command -v apt >/dev/null 2>&1; then
+  exec apt install $DEBIAN_PACKAGES
+fi
+
+echo "Unrecognised distribution. Omasign needs Qt 6 (base, declarative, svg)," >&2
+echo "poppler-qt6 with NSS signing support, and the NSS certutil tool." >&2
+exit 1

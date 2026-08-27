@@ -1,0 +1,28 @@
+#!/usr/bin/env sh
+set -eu
+
+ROOT="$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)"
+BUILD_DIR="$ROOT/build"
+
+if command -v qmake6 >/dev/null 2>&1; then
+  QMAKE=qmake6
+elif [ -x /usr/lib64/qt6/bin/qmake6 ]; then
+  QMAKE=/usr/lib64/qt6/bin/qmake6
+elif [ -x /usr/lib/qt6/bin/qmake6 ]; then
+  QMAKE=/usr/lib/qt6/bin/qmake6
+elif command -v qmake >/dev/null 2>&1; then
+  QMAKE=qmake
+else
+  echo "qmake6 is required to build omasign. See bin/deps." >&2
+  exit 1
+fi
+
+JOBS="$(nproc 2>/dev/null || echo 1)"
+
+mkdir -p "$BUILD_DIR"
+cd "$BUILD_DIR"
+
+"$QMAKE" "$ROOT/omasign.pro"
+make -j"$JOBS"
+
+echo "Built $BUILD_DIR/omasign"

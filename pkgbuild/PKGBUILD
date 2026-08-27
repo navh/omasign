@@ -1,0 +1,36 @@
+# Maintainer: Amos Hebb <navarre24@gmail.com>
+
+pkgname=omasign
+pkgver=0.1.0
+pkgrel=1
+pkgdesc='Sign PDFs with a digital signature that does not look like a defect'
+arch=('x86_64')
+url='https://github.com/navh/omasign'
+license=('MIT')
+install='omasign.install'
+# nss ships certutil, which Omasign uses to create and read the key store.
+depends=('qt6-base' 'qt6-declarative' 'qt6-svg' 'poppler-qt6' 'nss')
+makedepends=('gcc' 'make' 'qt6-base' 'qt6-declarative' 'qt6-svg' 'poppler-qt6')
+source=()
+sha256sums=()
+
+build() {
+  cd "$startdir/.."
+  ./bin/build
+}
+
+check() {
+  cd "$startdir/.."
+  ./bin/test
+}
+
+package() {
+  cd "$startdir/.."
+  /usr/bin/install -Dm755 build/omasign "$pkgdir/usr/bin/omasign"
+  /usr/bin/install -Dm644 LICENSE "$pkgdir/usr/share/licenses/$pkgname/LICENSE"
+  /usr/bin/install -Dm644 fonts/OFL.txt "$pkgdir/usr/share/licenses/$pkgname/OFL.txt"
+  # The icon carries Noto Serif CJK outlines, so its licence ships too.
+  /usr/bin/install -Dm644 fonts/OFL-Noto.txt "$pkgdir/usr/share/licenses/$pkgname/OFL-Noto.txt"
+  /usr/bin/install -Dm644 "$startdir/omasign.svg" "$pkgdir/usr/share/icons/hicolor/scalable/apps/omasign.svg"
+  /usr/bin/install -Dm644 "$startdir/omasign.desktop" "$pkgdir/usr/share/applications/omasign.desktop"
+}
