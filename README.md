@@ -11,8 +11,24 @@ key store Chrome and Okular already use, and it uploads nothing.
 
 ## Install
 
-`bin/deps` installs the build and runtime dependencies, then `bin/build`
-produces `build/omasign`.
+On Fedora 44 (x86_64), install the RPM from the latest release:
+
+```
+sudo dnf install https://github.com/navh/omasign/releases/download/v0.1.0/omasign-0.1.0-2.fc44.x86_64.rpm
+```
+
+dnf pulls in Qt 6, poppler-qt6 and nss-tools. On another Fedora release,
+rebuild the source RPM from the same release:
+
+```
+sudo dnf install rpm-build dnf-plugins-core
+sudo dnf builddep omasign-0.1.0-2.fc44.src.rpm
+rpmbuild --rebuild omasign-0.1.0-2.fc44.src.rpm
+sudo dnf install ~/rpmbuild/RPMS/x86_64/omasign-*.rpm
+```
+
+On other distributions, `bin/deps` installs the build and runtime dependencies,
+then `bin/build` produces `build/omasign`.
 
 ## Setting up
 
